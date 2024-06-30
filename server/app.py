@@ -10,14 +10,15 @@ def index():
 
 @app.route('/print/<string:parameter>')
 def print_string(parameter):
-    return f'{parameter}'
+    print(parameter)
+    return parameter
 
-@app.route('/print/<int:parameter>')
+@app.route('/count/<int:parameter>')
 def count(parameter):
     if parameter <= 0:
         return 'Please enter a positive integer'
     
-    output = "\n".join(x for x in range(1, parameter + 1))
+    output = "\n".join(str(x) for x in range(1, parameter + 1)) 
     return output
 
 @app.route('/math/<num1>/<operation>/<num2>')
@@ -31,8 +32,8 @@ def math(num1, operation, num2):
   }
     
     try:
-        result = operations[operation](num1, num2)
-        return f"{num1} {operation} {num2} = {result}"
+        result = operations[operation](int(num1), int(num2))
+        return f"{result}"
     except ZeroDivisionError:
         return "Error: Division by zero"
 
